@@ -2,7 +2,7 @@
 # AWS IoT Certificate Public Key
 # ----------------------------------------------------------------------------------------------
 output "iot_public_key" {
-  value     = aws_iot_certificate.this.public_key
+  value     = module.iot_devices.iot_public_key
   sensitive = true
 }
 
@@ -10,30 +10,22 @@ output "iot_public_key" {
 # AWS IoT Certificate Private Key
 # ----------------------------------------------------------------------------------------------
 output "iot_private_key" {
-  value     = aws_iot_certificate.this.private_key
+  value     = module.iot_devices.iot_private_key
   sensitive = true
 }
 
 # ----------------------------------------------------------------------------------------------
-# AWS IoT Certificate CA PEM
+# AWS IoT CA PEM
 # ----------------------------------------------------------------------------------------------
 output "iot_ca_pem" {
-  value     = aws_iot_certificate.this.ca_pem
+  value     = module.iot_devices.iot_ca_pem
   sensitive = true
 }
 
 # ----------------------------------------------------------------------------------------------
-# AWS IoT certificate PEM
+# AWS IoT Certificate PEM
 # ----------------------------------------------------------------------------------------------
 output "iot_certificate_pem" {
-  value     = aws_iot_certificate.this.certificate_pem
+  value     = module.iot_devices.iot_certificate_pem
   sensitive = true
-}
-
-
-# ----------------------------------------------------------------------------------------------
-# AWS IoT Certificate Private Key
-# ----------------------------------------------------------------------------------------------
-output "provisioning_template" {
-  value = aws_iot_provisioning_template.fleet
 }

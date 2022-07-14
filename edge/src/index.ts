@@ -2,12 +2,11 @@
  * Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
  * SPDX-License-Identifier: Apache-2.0.
  */
-
 import { mqtt, auth, http, io, iot, iotidentity } from 'aws-iot-device-sdk-v2';
+import * as fs from 'fs';
+import * as yargs from 'yargs';
 
-type Args = { [index: string]: any };
-const fs = require('fs');
-const yargs = require('yargs');
+type Args = Record<string, any>;
 
 yargs
   .command(
@@ -289,7 +288,7 @@ async function execute_csr(identity: iotidentity.IotIdentityClient, argv: Args) 
       try {
         csr = fs.readFileSync(argv.csr_file, 'utf8');
       } catch (e) {
-        console.log('Error reading CSR PEM file:', e.stack);
+        console.log('Error reading CSR PEM file:', (e as any).stack);
       }
       console.log('Subscribing to CreateCertificateFromCsr Accepted and Rejected topics..');
 
