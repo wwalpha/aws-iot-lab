@@ -181,7 +181,7 @@ async function execute_keys(identity: iotidentity.IotIdentityClient, argv: Args)
 }
 
 async function execute_register_thing(identity: iotidentity.IotIdentityClient, token: string, argv: Args) {
-  return new Promise(async (resolve, reject) => {
+  return new Promise<void>(async (resolve, reject) => {
     try {
       function registerAccepted(
         error?: iotidentity.IotIdentityError,
@@ -325,9 +325,9 @@ async function main(argv: Args) {
 
   const client_bootstrap = new io.ClientBootstrap();
 
-  let config_builder = null;
+  let config_builder: iot.AwsIotMqttConnectionConfigBuilder | null = null;
   if (argv.use_websocket) {
-    let proxy_options = undefined;
+    let proxy_options: http.HttpProxyOptions | undefined = undefined;
     if (argv.proxy_host) {
       proxy_options = new http.HttpProxyOptions(argv.proxy_host, argv.proxy_port);
     }
