@@ -29,3 +29,10 @@ output "iot_certificate_pem" {
   value     = module.iot_devices.iot_certificate_pem
   sensitive = true
 }
+
+# ----------------------------------------------------------------------------------------------
+# AWS IoT Certificate ID
+# ----------------------------------------------------------------------------------------------
+output "iot_certificate_id" {
+  value = module.iot_devices.iot_certificate_id
+}

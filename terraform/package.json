@@ -5,8 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "terraform apply -auto-approve",
-    "private": "terraform output -raw iot_private_key > cert_private_key.pem",
+    "private": "terraform output -raw iot_private_key > private.pem.key",
     "public": "terraform output -raw iot_public_key > cert_public_key.pem",
-    "cert": "terraform output -raw iot_certificate_pem > certificate.pem"
+    "cert": "terraform output -raw iot_certificate_pem > certificate.pem.crt"
   }
 }

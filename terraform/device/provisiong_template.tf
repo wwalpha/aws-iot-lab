@@ -34,7 +34,10 @@ resource "aws_iam_role_policy_attachment" "iot_fleet_provisioning_registration" 
 # ----------------------------------------------------------------------------------------------
 data "aws_iam_policy_document" "device_policy" {
   statement {
-    actions   = ["iot:Subscribe"]
+    actions = [
+      "iot:Subscribe",
+      "iot:Connect"
+    ]
     resources = ["*"]
   }
 }
@@ -53,6 +56,7 @@ resource "aws_iot_policy" "device_policy" {
 resource "aws_iot_provisioning_template" "fleet" {
   name                  = "iot_lab_fleet"
   description           = "Iot Lab fleet template"
+  enabled               = true
   provisioning_role_arn = aws_iam_role.iot_fleet_provisioning.arn
 
   template_body = jsonencode({
