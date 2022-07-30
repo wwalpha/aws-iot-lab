@@ -34,3 +34,15 @@ module "iot_devices" {
   source                = "./device"
   lambda_basic_role_arn = module.security.lambda_basic_role_arn
 }
+
+# ----------------------------------------------------------------------------------------------
+# Iot Module
+# ----------------------------------------------------------------------------------------------
+module "backend" {
+  depends_on = [
+    module.security
+  ]
+
+  source             = "./backend"
+  apigw_sqs_role_arn = module.security.apigw_sqs_role_arn
+}

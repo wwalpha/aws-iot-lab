@@ -1,3 +1,3 @@
-exports.handler = (event, context) => {
-  console.log('Hello world.', event, context);
+exports.handler = async (event) => {
+  console.log('Hello world.', event);
 };

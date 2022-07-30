@@ -25,3 +25,17 @@ data "aws_iam_policy_document" "ecs_tasks" {
     }
   }
 }
+
+# ----------------------------------------------------------------------------------------------
+# AWS IAM Policy Document - API Gateway
+# ----------------------------------------------------------------------------------------------
+data "aws_iam_policy_document" "apigw" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["apigateway.amazonaws.com"]
+    }
+  }
+}
