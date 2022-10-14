@@ -8,10 +8,11 @@ provider "aws" {}
 # ----------------------------------------------------------------------------------------------
 terraform {
   backend "remote" {
+    hostname     = "app.terraform.io"
     organization = "wwalpha"
 
     workspaces {
-      name = "aws-iot-lab"
+      prefix = "aws-iot-lab-"
     }
   }
 }
