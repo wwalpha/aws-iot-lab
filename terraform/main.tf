@@ -20,29 +20,61 @@ terraform {
 # Security Module
 # ----------------------------------------------------------------------------------------------
 module "security" {
-  source = "./security"
+  source          = "./security"
+  project_name_uc = local.project_name_uc
 }
 
 # ----------------------------------------------------------------------------------------------
 # Iot Module
 # ----------------------------------------------------------------------------------------------
-module "iot_devices" {
+# module "iot_devices" {
+#   depends_on = [
+#     module.security
+#   ]
+
+#   source                = "./device"
+#   lambda_basic_role_arn = module.security.lambda_basic_role_arn
+# }
+
+# ----------------------------------------------------------------------------------------------
+# Functions for frontend request
+# ----------------------------------------------------------------------------------------------
+# module "frontend" {
+#   depends_on = [
+#     module.security
+#   ]
+
+#   source             = "./frontend"
+#   apigw_sqs_role_arn = module.security.apigw_sqs_role_arn
+# }
+
+# ----------------------------------------------------------------------------------------------
+# Backend functions
+# ----------------------------------------------------------------------------------------------
+module "datalake" {
   depends_on = [
     module.security
   ]
 
-  source                = "./device"
-  lambda_basic_role_arn = module.security.lambda_basic_role_arn
+  source                    = "./datalake"
+  project_name              = local.project_name
+  kinesis_firehose_role_arn = module.security.kinesis_firehose_role_arn
 }
 
 # ----------------------------------------------------------------------------------------------
-# Iot Module
+# Databases
 # ----------------------------------------------------------------------------------------------
-module "backend" {
-  depends_on = [
-    module.security
-  ]
+module "database" {
+  source       = "./database"
+  project_name = local.project_name
+}
 
-  source             = "./backend"
-  apigw_sqs_role_arn = module.security.apigw_sqs_role_arn
+# ----------------------------------------------------------------------------------------------
+# App
+# ----------------------------------------------------------------------------------------------
+module "app" {
+  source                    = "./app"
+  project_name              = local.project_name
+  kinesis_firehose_name     = module.datalake.kinesis_firehose_name
+  iot_rule_role_arn = module.security.iot_rule_role_arn
 }

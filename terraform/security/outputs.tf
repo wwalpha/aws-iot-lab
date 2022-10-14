@@ -19,3 +19,10 @@ output "apigw_sqs_role_arn" {
 output "kinesis_firehose_role_arn" {
   value = aws_iam_role.kinesis_firehose.arn
 }
+
+# ----------------------------------------------------------------------------------------------
+# IAM Role Arn - Iot Rule
+# ----------------------------------------------------------------------------------------------
+output "iot_rule_role_arn" {
+  value = aws_iam_role.iot_rule.arn
+}
