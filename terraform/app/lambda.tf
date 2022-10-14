@@ -15,7 +15,7 @@ resource "aws_lambda_function" "kinesis_stream_events" {
   environment {
     variables = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED = "1"
-      TABLE_NAME_STATUS                   = var.dynamodb_table_name_device_status
+      TABLE_NAME_DEVICE_STATUS                   = var.dynamodb_table_name_device_status
     }
   }
 }
