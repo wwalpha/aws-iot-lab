@@ -56,9 +56,9 @@ module "datalake" {
     module.security
   ]
 
-  source                    = "./datalake"
-  project_name              = local.project_name
-  kinesis_firehose_role_arn = module.security.kinesis_firehose_role_arn
+  source            = "./datalake"
+  project_name      = local.project_name
+  firehose_role_arn = module.security.firehose_role_arn_datalake
 }
 
 # ----------------------------------------------------------------------------------------------
@@ -73,8 +73,10 @@ module "database" {
 # App
 # ----------------------------------------------------------------------------------------------
 module "app" {
-  source                    = "./app"
-  project_name              = local.project_name
-  kinesis_firehose_name     = module.datalake.kinesis_firehose_name
-  iot_rule_role_arn = module.security.iot_rule_role_arn
+  source                                = "./app"
+  project_name                          = local.project_name
+  kinesis_firehose_name                 = module.datalake.kinesis_firehose_name
+  iot_rule_role_arn_status              = module.security.iot_role_arn_status
+  lambda_role_arn_kinesis_stream_events = module.security.lambda_role_arn_kinesis_stream_events
+  dynamodb_table_name_device_status     = module.database.dynamodb_table_name_device_status
 }

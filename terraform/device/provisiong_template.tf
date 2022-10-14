@@ -54,6 +54,7 @@ resource "aws_iot_policy" "device_policy" {
 # AWS IoT Certificate
 # ----------------------------------------------------------------------------------------------
 resource "aws_iot_provisioning_template" "fleet" {
+  depends_on            = [aws_iam_role.iot_fleet_provisioning, aws_iot_policy.device_policy]
   name                  = "iot_lab_fleet"
   description           = "Iot Lab fleet template"
   enabled               = true

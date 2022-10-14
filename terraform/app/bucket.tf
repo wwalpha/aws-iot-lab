@@ -1,9 +1,21 @@
 # ----------------------------------------------------------------------------------------------
-# Project Prefix
+# Amazon S3 Bucket - Materials
 # ----------------------------------------------------------------------------------------------
-variable "project_name" {}
+resource "aws_s3_bucket" "materials" {
+  bucket = local.bucket_name_materials
+}
 
 # ----------------------------------------------------------------------------------------------
-# Project Prefix
+# S3 Object - Lambda module
 # ----------------------------------------------------------------------------------------------
-variable "firehose_role_arn" {}
+resource "aws_s3_object" "lambda_module" {
+  bucket = aws_s3_bucket.materials.id
+  key    = "lambda/default.zip"
+  source = data.archive_file.lambda_module.output_path
+
+  lifecycle {
+    ignore_changes = [
+      etag
+    ]
+  }
+}

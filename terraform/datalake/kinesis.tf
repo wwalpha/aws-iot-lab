@@ -6,7 +6,7 @@ resource "aws_kinesis_firehose_delivery_stream" "s3" {
   destination = "extended_s3"
 
   extended_s3_configuration {
-    role_arn   = var.kinesis_firehose_role_arn
+    role_arn   = var.firehose_role_arn
     bucket_arn = aws_s3_bucket.data_lake.arn
 
     # processing_configuration {

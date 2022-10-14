@@ -7,14 +7,19 @@ resource "aws_iot_topic_rule" "status" {
   sql         = "SELECT * FROM 'topic/status'"
   sql_version = "2016-03-23"
 
+  kinesis {
+    stream_name = aws_kinesis_stream.events.name
+    role_arn    = var.iot_rule_role_arn_status
+  }
+
   firehose {
     delivery_stream_name = var.kinesis_firehose_name
-    role_arn             = var.iot_rule_role_arn
+    role_arn             = var.iot_rule_role_arn_status
   }
 
   cloudwatch_logs {
     log_group_name = aws_cloudwatch_log_group.iot_rules.name
-    role_arn       = var.iot_rule_role_arn
+    role_arn       = var.iot_rule_role_arn_status
   }
 }
 
