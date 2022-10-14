@@ -21,7 +21,7 @@ on:
       TF_API_TOKEN:
         required: true
       TF_VARS:
-        required: true
+        required: false
 
 jobs:
   Apply:
