@@ -39,3 +39,17 @@ data "aws_iam_policy_document" "apigw" {
     }
   }
 }
+
+# ----------------------------------------------------------------------------------------------
+# AWS IAM Policy Document - Kinesis
+# ----------------------------------------------------------------------------------------------
+data "aws_iam_policy_document" "kinesis" {
+  statement {
+    actions = ["sts:AssumeRole"]
+
+    principals {
+      type        = "Service"
+      identifiers = ["firehose.amazonaws.com"]
+    }
+  }
+}

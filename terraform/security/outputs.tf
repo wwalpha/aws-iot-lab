@@ -11,3 +11,11 @@ output "lambda_basic_role_arn" {
 output "apigw_sqs_role_arn" {
   value = aws_iam_role.apigw_svr_sqs.arn
 }
+
+
+# ----------------------------------------------------------------------------------------------
+# IAM Role Arn - Kinesis firehose export to s3 bucket
+# ----------------------------------------------------------------------------------------------
+output "kinesis_firehose_role_arn" {
+  value = aws_iam_role.kinesis_firehose.arn
+}
