@@ -14,10 +14,14 @@ env:
   AWS_DEFAULT_REGION: ap-northeast-1
   # base directory
   WORKING_DIRECTORY: backend
+  # materials bucket
+  BUCKET_MATERIALS: iotlab-materials-654ba1
 
 jobs:
   Build:
     runs-on: ubuntu-latest
+    environment:
+      AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
     defaults:
       run:
         working-directory: ${{ env.working-directory }}
@@ -45,3 +49,9 @@ jobs:
         run: |
           yarn install
           yarn build
+
+      # Save to storage
+      - name: Storage
+        run: |
+          sh configs/package.sh
+          aws s3 sync ./zipped/ s3://$BUCKET_MATERIALS/lambda/ --no-progress --only-show-errors

@@ -1,5 +1,6 @@
 import * as path from 'path';
 import { Configuration, LoaderOptionsPlugin } from 'webpack';
+var ZipPlugin = require('zip-webpack-plugin');
 
 const configs: Configuration = {
   target: 'node',
@@ -9,8 +10,8 @@ const configs: Configuration = {
     kinesis_stream_events: './kinesis_stream_events/src/index.ts',
   },
   output: {
-    filename: '[name].js',
-    path: path.resolve(__dirname, './dist'),
+    filename: '[name]/index.js',
+    path: path.resolve(__dirname, '../dist'),
     libraryTarget: 'commonjs2',
     clean: true,
   },
