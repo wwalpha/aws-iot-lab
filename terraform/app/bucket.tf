@@ -3,6 +3,14 @@
 # ----------------------------------------------------------------------------------------------
 resource "aws_s3_bucket" "materials" {
   bucket = local.bucket_name_materials
+}
+
+# ----------------------------------------------------------------------------------------------
+# Amazon S3 Bucket Versioning - Materials
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_bucket_versioning" "materials" {
+  bucket = aws_s3_bucket.materials.id
+
   versioning_configuration {
     status = "Enabled"
   }
