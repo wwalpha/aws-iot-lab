@@ -1,6 +1,5 @@
 import * as path from 'path';
 import { Configuration, LoaderOptionsPlugin } from 'webpack';
-var ZipPlugin = require('zip-webpack-plugin');
 
 const configs: Configuration = {
   target: 'node',
