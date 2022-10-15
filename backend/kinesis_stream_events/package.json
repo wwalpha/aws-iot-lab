@@ -1,0 +1,22 @@
+{
+  "name": "kinesis_stream_events",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prebuild": "rm -rf dist",
+    "build": "tsc",
+    "postbuild": "cd dist && yarn install --production && zip -rq ../dist.zip ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1232.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.107",
+    "@types/node": "^18.8.5",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
+  }
+}
