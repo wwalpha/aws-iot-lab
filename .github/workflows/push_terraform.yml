@@ -8,6 +8,13 @@ on:
       - .github/workflows/reuse_terraform.yml
     branches-ignore:
       - releases/**
+  workflow_run:
+    workflows:
+      - PUSH_B) Lambda Build
+    branches:
+      - master
+    types:
+      - completed
 
 jobs:
   Infrastructure:
