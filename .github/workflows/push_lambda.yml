@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - backend/kinesis_stream_events/**
+      - backend/configs/**
       - .github/workflows/push_lambda.yml
     branches-ignore:
       - releases/**
