@@ -20,7 +20,7 @@ env:
 jobs:
   Build:
     runs-on: ubuntu-latest
-    environment:
+    env:
       AWS_DEFAULT_REGION: ${{ env.AWS_DEFAULT_REGION }}
     defaults:
       run:
