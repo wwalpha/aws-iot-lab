@@ -53,6 +53,6 @@ jobs:
       # Save to storage
       - name: Storage
         run: |
-          sh configs/package.sh
+          bash configs/package.sh
           aws s3 sync ./zipped/ s3://$BUCKET_MATERIALS/lambda/ --no-progress --only-show-errors
         shell: bash
