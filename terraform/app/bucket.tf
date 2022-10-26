@@ -30,3 +30,18 @@ resource "aws_s3_object" "lambda_module" {
     ]
   }
 }
+
+# ----------------------------------------------------------------------------------------------
+# S3 Object - Lambda module
+# ----------------------------------------------------------------------------------------------
+resource "aws_s3_object" "libraries_dynamodb" {
+  bucket = aws_s3_bucket.materials.id
+  key    = "libraries/dynamodb.zip"
+  source = data.archive_file.lambda_module.output_path
+
+  lifecycle {
+    ignore_changes = [
+      etag
+    ]
+  }
+}

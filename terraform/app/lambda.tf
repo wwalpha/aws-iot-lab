@@ -2,6 +2,7 @@
 # Lambda Function - Kinesis stream events
 # ----------------------------------------------------------------------------------------------
 resource "aws_lambda_function" "kinesis_stream_events" {
+  depends_on        = [aws_s3_bucket.materials]
   function_name     = "${var.project_name}-kinesis-events"
   s3_bucket         = local.bucket_name_materials
   s3_key            = aws_s3_object.lambda_module.key
@@ -11,11 +12,12 @@ resource "aws_lambda_function" "kinesis_stream_events" {
   memory_size       = 1024
   role              = var.lambda_role_arn_kinesis_stream_events
   timeout           = 10
+  layers            = [aws_lambda_layer_version.libraries_dynamodb.arn]
 
   environment {
     variables = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED = "1"
-      TABLE_NAME_DEVICE_STATUS                   = var.dynamodb_table_name_device_status
+      TABLE_NAME_DEVICE_STATUS            = var.dynamodb_table_name_device_status
     }
   }
 }
@@ -38,3 +40,16 @@ resource "aws_lambda_event_source_mapping" "kinesis_stream_events" {
   function_name     = aws_lambda_function.kinesis_stream_events.function_name
   starting_position = "LATEST"
 }
+
+# ----------------------------------------------------------------------------------------------
+# Lambda Layer - @alphax/dynamodb
+# ----------------------------------------------------------------------------------------------
+resource "aws_lambda_layer_version" "libraries_dynamodb" {
+  depends_on          = [aws_s3_bucket.materials]
+  layer_name          = "dynamodb"
+  s3_bucket           = local.bucket_name_materials
+  s3_key              = aws_s3_object.libraries_dynamodb.key
+  s3_object_version   = aws_s3_object.libraries_dynamodb.version_id
+  compatible_runtimes = ["nodejs14.x"]
+}
+
