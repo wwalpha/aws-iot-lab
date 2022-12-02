@@ -29,7 +29,7 @@ jobs:
     environment: ${{ inputs.environment }}
     env:
       AWS_DEFAULT_REGION: ${{ inputs.region }}
-      TF_WORKSPACE: ${{ inputs.environment }}
+      # TF_WORKSPACE: ${{ inputs.environment }}
       TF_VARS: ${{ secrets.TF_VARS }}
     defaults:
       run:
