@@ -12,6 +12,8 @@ on:
 env:
   # region
   AWS_DEFAULT_REGION: ap-northeast-1
+  # s3 bucket
+  BUCKET_ARTIFACTS: iotlab-artifacts-d325aa
   # base directory
   WORKING_DIRECTORY: components
 
@@ -38,16 +40,16 @@ jobs:
         uses: tj-actions/changed-files@v34
 
       # AWS Credentials
-      # - name: Configure AWS credentials
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: ${{ env.AWS_DEFAULT_REGION }}
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_DEFAULT_REGION }}
 
       # Save to storage
       - name: Storage
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "$file was changed"
+            aws s3 cp ./${file:11} $file s3://$BUCKET_ARTIFACTS/artifacts/com.example.HelloWorld/1.0.0/hello_world.py
           done

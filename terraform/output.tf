@@ -36,3 +36,11 @@
 # output "iot_certificate_id" {
 #   value = module.iot_devices.iot_certificate_id
 # }
+
+
+# ----------------------------------------------------------------------------------------------
+# Amazon S3 - Artifacts
+# ----------------------------------------------------------------------------------------------
+output "s3_bucket_artifacts_name" {
+  value = module.storage.s3_bucket_artifacts.id
+}
