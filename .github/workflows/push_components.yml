@@ -45,7 +45,7 @@ jobs:
 
       # AWS Credentials
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v1-node16
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -55,6 +55,7 @@ jobs:
       - name: Storage
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            path=${file:11}
-            aws s3 cp $path s3://$BUCKET_ARTIFACTS/$path
+            bucket_key=${file:21}
+            local_path=${file:11}
+            aws s3 cp $path s3://$BUCKET_ARTIFACTS/components/$bucket_key
           done
