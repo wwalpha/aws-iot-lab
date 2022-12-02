@@ -28,14 +28,14 @@ module "security" {
 # ----------------------------------------------------------------------------------------------
 # Iot Module
 # ----------------------------------------------------------------------------------------------
-# module "iot_devices" {
-#   depends_on = [
-#     module.security
-#   ]
+module "iot_devices" {
+  depends_on = [
+    module.security
+  ]
 
-#   source                = "./device"
-#   lambda_basic_role_arn = module.security.lambda_basic_role_arn
-# }
+  source       = "./device"
+  project_name = local.project_name
+}
 
 # ----------------------------------------------------------------------------------------------
 # Functions for frontend request
