@@ -32,6 +32,11 @@ jobs:
         with:
           node-version: 18.x
 
+      # Detect changed files
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v34
+
       # AWS Credentials
       # - name: Configure AWS credentials
       #   uses: aws-actions/configure-aws-credentials@v1
@@ -43,6 +48,6 @@ jobs:
       # Save to storage
       - name: Storage
         run: |
-          for file in ${{ steps.changed-files.outputs }}; do
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed"
           done
