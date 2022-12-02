@@ -1,0 +1,46 @@
+name: PUSH_B) Components Build
+
+on:
+  push:
+    paths:
+      - components/artifacts/**
+      - components/recipes/**
+    branches-ignore:
+      - releases/**
+  workflow_dispatch:
+
+env:
+  # region
+  AWS_DEFAULT_REGION: ap-northeast-1
+  # base directory
+  WORKING_DIRECTORY: components
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+
+    steps:
+      # source checkout
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Setup Node.js
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+
+      # AWS Credentials
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      # Save to storage
+      - name: Storage
+        run: |
+          echo ${{ steps.changed-files.outputs.all_changed_files }} 
