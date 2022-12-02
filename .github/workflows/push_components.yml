@@ -52,5 +52,6 @@ jobs:
       - name: Storage
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            aws s3 cp ./${file:11} $file s3://$BUCKET_ARTIFACTS/artifacts/com.example.HelloWorld/1.0.0/hello_world.py
+            localfile=${file:11}
+            aws s3 cp $localfile s3://$BUCKET_ARTIFACTS/artifacts/com.example.HelloWorld/1.0.0/hello_world.py
           done
