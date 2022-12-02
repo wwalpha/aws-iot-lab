@@ -41,7 +41,7 @@ jobs:
         uses: tj-actions/changed-files@v34
         with:
           files: |
-            components/**
+            components/artifacts/**
 
       # AWS Credentials
       - name: Configure AWS credentials
