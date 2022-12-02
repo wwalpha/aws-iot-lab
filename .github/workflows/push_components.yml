@@ -57,5 +57,5 @@ jobs:
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             bucket_key=${file:21}
             local_path=${file:11}
-            aws s3 cp $path s3://$BUCKET_ARTIFACTS/components/$bucket_key
+            aws s3 cp $local_path s3://$BUCKET_ARTIFACTS/components/$bucket_key
           done
