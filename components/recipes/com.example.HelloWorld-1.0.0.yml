@@ -14,4 +14,4 @@ Manifests:
     Run: |
       python3 {artifacts:path}/hello_world.py '{configuration:/Message}'
   Artifacts:
-  - Uri: s3://EXAMPLE_BUCKET/artifacts/com.example.HelloWorld/1.0.0/hello_world.py
+  - Uri: s3://iotlab-artifacts-d325aa/components/com.example.HelloWorld/1.0.0/hello_world.py
