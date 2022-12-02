@@ -39,6 +39,9 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v34
+        with:
+          files: |
+            components/**
 
       # AWS Credentials
       - name: Configure AWS credentials
@@ -52,6 +55,6 @@ jobs:
       - name: Storage
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            localfile=${file:11}
-            aws s3 cp $localfile s3://$BUCKET_ARTIFACTS/artifacts/com.example.HelloWorld/1.0.0/hello_world.py
+            path=${file:11}
+            aws s3 cp $path s3://$BUCKET_ARTIFACTS/$path
           done
